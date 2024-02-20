@@ -16,7 +16,7 @@ public:
 	Facebook();
 
 	//distructor
-	~Facebook() = default;
+	~Facebook();
 
 
 	void addUser() 

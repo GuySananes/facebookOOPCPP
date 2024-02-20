@@ -1,7 +1,8 @@
 #include "profile.h"
+#include <string.h>
 
-
-Profile::Profile(char name[20],Date& dateOfBirth){
+Profile::Profile(char name[USER_NAME_LEN],Date& dateOfBirth){
 	this->birth_date = dateOfBirth;
-	strcpy();
+	strncpy(this->name, name, USER_NAME_LEN - 1);
+	
 }

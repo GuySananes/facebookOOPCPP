@@ -4,10 +4,12 @@
 //includes
 #include "date.h"
 
+#define USER_NAME_LEN 20
+
 class Profile
 {
 private:
-	char name[20];
+	char name[USER_NAME_LEN];
 	Date birth_date;
 	//status_list home_page;
 	Profile* friends;
@@ -15,7 +17,7 @@ private:
 
 public:
 	// Constructor
-	Profile(char name[20], Date& dateOfBirth);
+	Profile(char name[USER_NAME_LEN], Date& dateOfBirth);
 
 	
 };
