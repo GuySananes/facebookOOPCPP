@@ -19,19 +19,18 @@ public:
 	~Facebook();
 
 
-	void addUser() 
-	{
+	void addUser();
 
-	}
+	void addExistUsers();
 
 	void removeUser()
 	{
-
+		//TODO
 	}
 
 	void updateStatus()
 	{
-
+		//TODO
 	}
 };
 

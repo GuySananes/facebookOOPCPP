@@ -11,7 +11,7 @@ void main()
 	do{
 		//command = printMenu();
 		//facebood.do(command);
-	}while(command != 12)
+	} while (command != 12);
 
 
 }

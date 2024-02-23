@@ -25,7 +25,7 @@ Facebook::~Facebook() {
 
 void Facebook::addUser()
 {	
-	char name[20];
+	char name[USER_NAME_LEN];
 	int year, month, day;
 	
 	cout << "Please enter user name:" << endl;
@@ -40,5 +40,14 @@ void Facebook::addUser()
 	Date DateOfBirth(day,month,year);
 	Profile* newProfile = new Profile(name, DateOfBirth);
 	
-	this->usersList_[this->numOfUser_] = newProfile;
+	this->usersList_[this->numOfUser_++] = newProfile;
+}
+
+void Facebook::addExistUsers()
+{
+	
+	Date DateOfBirth(11, 11, 1969);
+	Profile* newProfile = new Profile("Doron Sananes", DateOfBirth);
+
+	this->usersList_[this->numOfUser_++] = newProfile;
 }
