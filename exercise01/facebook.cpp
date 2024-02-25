@@ -1,6 +1,7 @@
 #include "facebook.h"
 #include "profile.h"
 #include "date.h"
+#include "fanPage.h"
 
 #include <iostream>
 
@@ -8,14 +9,18 @@ using namespace std;
 
 #define USER_ARRAY_SIZE 10
 
-
+//constructor
 Facebook::Facebook() 
 {
 	this->usersList_ = new Profile* [USER_ARRAY_SIZE];
 	this->numOfUser_ = 0;
 
+	this->fanPageList_ = new FanPage * [USER_ARRAY_SIZE];
+	this->numOfUser_ = 0;
+
 }
 
+//distructor
 Facebook::~Facebook() {
 	for (int i; i < this->numOfUser_; i++) {
 		delete this->usersList_[i];
@@ -95,11 +100,11 @@ void Facebook::fDo(int command)
 
 void Facebook::addUser()
 {	
-	char name[USER_NAME_LEN];
+	char name_[USER_NAME_LEN];
 	int year, month, day;
 	
 	cout << "Please enter user name:" << endl;
-	cin >> name;
+	cin >> name_;
 	cout << "Please enter birth year:" << endl;
 	cin >> year;
 	cout << "Please enter birth month:" << endl;
@@ -108,7 +113,7 @@ void Facebook::addUser()
 	cin >> day;
 
 	Date DateOfBirth(day,month,year);
-	Profile* newProfile = new Profile(name, DateOfBirth);
+	Profile* newProfile = new Profile(name_, DateOfBirth);
 	
 	this->usersList_[this->numOfUser_++] = newProfile;
 }
@@ -117,7 +122,17 @@ void Facebook::addExistUsers()
 {
 	
 	Date DateOfBirth(11, 11, 1969);
-	//Profile* newProfile = new Profile("Doron Sananes", DateOfBirth);
+	Profile* newProfile = new Profile("first User", DateOfBirth);
 
-	//this->usersList_[this->numOfUser_++] = newProfile;
+	this->usersList_[this->numOfUser_++] = newProfile;
+}
+
+void Facebook::addFanPage()
+{
+	char name[USER_NAME_LEN];
+	cout << "Please enter new fan page name:" << endl;
+	cin >> name;
+	FanPage* newPage = new FanPage(name);
+
+	this->fanPageList_[this->numOfPages++] = newPage;
 }

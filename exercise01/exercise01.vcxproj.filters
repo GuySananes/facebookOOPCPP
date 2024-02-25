@@ -30,6 +30,9 @@
     <ClCompile Include="facebook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fanPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="profile.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="facebook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fanPage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

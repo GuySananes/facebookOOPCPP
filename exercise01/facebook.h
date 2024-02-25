@@ -35,14 +35,65 @@ public:
 	//distructor
 	~Facebook();
 
+	//member function
 
 	int mainMenu();
 
 	void fDo(int command) {};
 
+	void addExistUsers();
+
 	void addUser();
 
-	void addExistUsers();
+	void addFanPage()
+	{
+		//TODO
+	}
+
+	void showAllStatus()
+	{
+		//TODO
+	}
+
+	void showLast10Status()
+	{
+		//TODO
+	}
+
+	void linkFriendship()
+	{
+		//TODO
+	}
+
+	void cancelFriendship()
+	{
+		//TODO
+	}
+
+	void addFanToPage()
+	{
+		//TODO
+	}
+
+	void removeFanFromPage()
+	{
+		//TODO
+	}
+
+	void showAllSystemEnteties()
+	{
+		//TODO
+	}
+
+	void showAllFriends()
+	{
+		//TODO
+	}
+
+	void exit()
+	{
+		//TODO
+	}
 
 	void removeUser()
 	{

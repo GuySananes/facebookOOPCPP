@@ -9,8 +9,8 @@ void main()
 	my_facebook.addExistUsers();
 	int command = 0;
 	do{
-		//command = printMenu();
-		//facebood.do(command);
+		command = my_facebook.mainMenu();
+		my_facebook.fDo(command);
 	} while (command != 12);
 
 

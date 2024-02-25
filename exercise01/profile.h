@@ -9,17 +9,20 @@
 class Profile
 {
 private:
-	char name[USER_NAME_LEN];
-	Date birth_date;
+	char name_[USER_NAME_LEN];
+	Date date_of_birth_;
 	//status_list home_page;
-	Profile* friends;
+	Profile* friends_list_;
 	//pages_list liked_pages;
 
 public:
 	// Constructor
-	Profile(char name[USER_NAME_LEN], Date& dateOfBirth);
+	Profile(char name_[USER_NAME_LEN], Date& dateOfBirth);
 
-	
+	//distructor
+	~Profile();
+
+
 };
 
 #endif // !__PROFILE_H

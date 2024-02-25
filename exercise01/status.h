@@ -7,13 +7,20 @@
 //enum
 enum class StatusType
 {
-	text
+	text //, image, video
 };
 
 class Status
 {
-	StatusType type;
-	Date date;
+private:
+	StatusType type_;
+	Date date_;
+
+public:
+	//constructor
+	Status() {};
+
+
 
 };
 
