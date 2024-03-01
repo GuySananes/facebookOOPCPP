@@ -3,6 +3,7 @@
 #include "date.h"
 #include "fanPage.h"
 
+#include <string>
 #include <iostream>
 
 using namespace std;
@@ -14,15 +15,16 @@ Facebook::Facebook()
 {
 	this->usersList_ = new Profile* [USER_ARRAY_SIZE];
 	this->numOfUser_ = 0;
+	this->numOfFanPage_ = 0;
 
-	this->fanPageList_ = new FanPage * [USER_ARRAY_SIZE];
+	this->fanPagesList_ = new FanPage * [USER_ARRAY_SIZE];
 	this->numOfUser_ = 0;
 
 }
 
 //distructor
 Facebook::~Facebook() {
-	for (int i; i < this->numOfUser_; i++) {
+	for (int i=0; i < this->numOfUser_; i++) {
 		delete this->usersList_[i];
 	}
 	delete this->usersList_;
@@ -60,10 +62,10 @@ void Facebook::fDo(int command)
 		addUser();
 		break;
 	case (int)Command::ADD_FAN_PAGE:
-		//addFanPage();
+		addFanPage();
 		break;
 	case (int)Command::ADD_STATUS:
-		//addStatus();
+		addStatus();
 		break;
 	case (int)Command::SHOW_ALL_STATUS:
 		//showAllStatus();
@@ -104,7 +106,9 @@ void Facebook::addUser()
 	int year, month, day;
 	
 	cout << "Please enter user name:" << endl;
-	cin >> name_;
+	ws(cin);
+	cin.getline(name_, USER_NAME_LEN);
+
 	cout << "Please enter birth year:" << endl;
 	cin >> year;
 	cout << "Please enter birth month:" << endl;
@@ -121,9 +125,14 @@ void Facebook::addUser()
 void Facebook::addExistUsers()
 {
 	
-	Date DateOfBirth(11, 11, 1969);
-	Profile* newProfile = new Profile("first User", DateOfBirth);
-
+	Date DateOfBirth(31, 7, 1980);
+	Profile* newProfile = new Profile("Harry Potter", DateOfBirth);
+	this->usersList_[this->numOfUser_++] = newProfile;
+	DateOfBirth.setDate(19, 9, 1979);
+	newProfile = new Profile("Hermione Granger", DateOfBirth);
+	this->usersList_[this->numOfUser_++] = newProfile;
+	DateOfBirth.setDate(1, 3, 1980);
+	newProfile = new Profile("Ronald Weasley", DateOfBirth);
 	this->usersList_[this->numOfUser_++] = newProfile;
 }
 
@@ -131,8 +140,75 @@ void Facebook::addFanPage()
 {
 	char name[USER_NAME_LEN];
 	cout << "Please enter new fan page name:" << endl;
-	cin >> name;
+	ws(cin);
+	cin.getline(name, USER_NAME_LEN);
 	FanPage* newPage = new FanPage(name);
 
-	this->fanPageList_[this->numOfPages++] = newPage;
+	this->fanPagesList_[this->numOfFanPage_++] = newPage;
+}
+
+void Facebook::addStatus()
+{
+	cout << "Do you want to add status to a friend or a fan page?" << endl
+		<< "1 - Friend" << endl
+		<< "2 - Fan page" << endl;
+	int choice;
+	cin >> choice;
+	if (choice == 1)
+	{
+		showAllProfile();
+		cout << "Please enter user number:" << endl;
+		cin >> choice;
+		this->usersList_[choice - 1]->addStatus();
+	}
+	else
+	{
+		showAllFanPage();
+		cout << "Please enter fan page number:" << endl;
+		cin >> choice;
+		this->fanPagesList_[choice - 1]->addStatus();
+	}
+}
+
+void Facebook::showAllProfile()
+{
+	char name[USER_NAME_LEN];
+	for (int i = 0; i < this->numOfUser_; i++)
+	{
+		this->usersList_[i]->getProfileName(name);
+		cout << "User " << i + 1 << " : " << name << endl;
+	}
+}
+
+void Facebook::showAllFanPage()
+{
+	char name[USER_NAME_LEN];
+	for (int i = 0; i < this->numOfFanPage_; i++)
+	{
+		this->fanPagesList_[i]->getFanPageName(name);
+		cout << "Fan page " << i + 1 << " : " << name << endl;
+	}
+}
+
+void Facebook::showAllStatus()
+{
+	cout << "Do you want to see all the statuses of a friend or a fan page?" << endl
+		<< "1 - Friend" << endl
+		<< "2 - Fan page" << endl;
+	int choice;
+	cin >> choice;
+	if (choice == 1)
+	{
+		showAllProfile();
+		cout << "Please enter user number:" << endl;
+		cin >> choice;
+		this->usersList_[choice - 1]->addStatus();
+	}
+	else
+	{
+		showAllFanPage();
+		cout << "Please enter fan page number:" << endl;
+		cin >> choice;
+		this->fanPagesList_[choice - 1]->addStatus();
+	}
 }

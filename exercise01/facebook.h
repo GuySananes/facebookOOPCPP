@@ -20,6 +20,7 @@ enum class Command
 
 //include
 class Profile;
+class FanPage;
 
 class Facebook
 {
@@ -27,6 +28,8 @@ private:
 
 	Profile** usersList_;
 	int numOfUser_;
+	FanPage** fanPagesList_;
+	int numOfFanPage_;
 
 public:
 	//constructor
@@ -39,21 +42,21 @@ public:
 
 	int mainMenu();
 
-	void fDo(int command) {};
+	void fDo(int command);
 
 	void addExistUsers();
 
 	void addUser();
 
-	void addFanPage()
-	{
-		//TODO
-	}
+	void addFanPage();
 
-	void showAllStatus()
-	{
-		//TODO
-	}
+	void addStatus();
+
+	void showAllProfile();
+
+	void showAllFanPage();
+
+	void showAllStatus();
 
 	void showLast10Status()
 	{

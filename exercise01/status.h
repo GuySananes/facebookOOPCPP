@@ -15,10 +15,22 @@ class Status
 private:
 	StatusType type_;
 	Date date_;
+	char* text_;
+	int size_of_text_;
 
 public:
 	//constructor
-	Status() {};
+	Status(char* status);
+
+	//distructor
+	~Status()
+	{
+		delete[] this->text_;
+	}
+
+	//member function
+
+	void showStatus();
 
 
 

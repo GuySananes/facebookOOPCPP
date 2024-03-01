@@ -15,6 +15,9 @@ public:
     ~Date() {}
 
     // Member functions
+
+    void showDate();
+    void setDate(int d, int m, int y);
 };
 
 #endif // !__DATE_H
