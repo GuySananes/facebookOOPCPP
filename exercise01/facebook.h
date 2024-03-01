@@ -52,6 +52,8 @@ public:
 
 	void addStatus();
 
+	void showAllProfile(int skip);
+
 	void showAllProfile();
 
 	void showAllFanPage();
@@ -63,10 +65,7 @@ public:
 		//TODO
 	}
 
-	void linkFriendship()
-	{
-		//TODO
-	}
+	void linkFriendship(); 
 
 	void cancelFriendship()
 	{

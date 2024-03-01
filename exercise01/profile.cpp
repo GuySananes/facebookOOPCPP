@@ -59,3 +59,46 @@ void Profile::addStatus()
 	Status* newStatus = new Status(status);
 	this->status_list_[this->num_of_status_++] = newStatus;
 }
+
+void Profile::addStatus(const char* status)
+{
+	Status* newStatus = new Status(status);
+	this->status_list_[this->num_of_status_++] = newStatus;
+}
+
+void Profile::showAllStatus()
+{
+	for (int i = 0; i < this->num_of_status_; i++)
+	{
+		this->status_list_[i]->showStatus();
+	}
+	system("pause");
+}
+
+void Profile::addFriend(Profile* newFriend)
+{
+	if (this->num_of_friends_ == this->size_of_friends_list_)
+	{
+		this->size_of_friends_list_ *= 2;
+		Profile** temp = new Profile * [this->size_of_friends_list_];
+		for (int i = 0; i < this->num_of_friends_; i++)
+		{
+			temp[i] = this->friends_list_[i];
+		}
+		delete[] this->friends_list_;
+		this->friends_list_ = temp;
+	}
+	if (newFriend->num_of_friends_ == newFriend->size_of_friends_list_)
+	{
+		newFriend->size_of_friends_list_ *= 2;
+		Profile** temp = new Profile * [newFriend->size_of_friends_list_];
+		for (int i = 0; i < newFriend->num_of_friends_; i++)
+		{
+			temp[i] = newFriend->friends_list_[i];
+		}
+		delete[] newFriend->friends_list_;
+		newFriend->friends_list_ = temp;
+	}
+	newFriend->friends_list_[newFriend->num_of_friends_++] = this;
+	this->friends_list_[this->num_of_friends_++] = newFriend;
+}

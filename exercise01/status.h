@@ -21,6 +21,7 @@ private:
 public:
 	//constructor
 	Status(char* status);
+	Status(const char* status);
 
 	//distructor
 	~Status()

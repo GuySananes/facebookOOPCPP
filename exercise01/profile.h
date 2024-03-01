@@ -29,7 +29,10 @@ public:
 
 	// Member function
 	void addStatus();
+	void addStatus(const char* status);
 	void getProfileName(char* name);
+	void showAllStatus();
+	void addFriend(Profile* newFriend);
 
 	//distructor
 	~Profile();

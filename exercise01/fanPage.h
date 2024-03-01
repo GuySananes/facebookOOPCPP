@@ -17,6 +17,7 @@ private:
 public:
 	//constructor
 	FanPage(char* page_name);
+	FanPage(const char* page_name);
 
 	//distructor
 	~FanPage();
@@ -28,6 +29,7 @@ public:
 	void showPageName();
 	void getFanPageName(char* name);
 	void addStatus();
+	void addStatus(const char* status);
 	void showAllStatus();
 
 

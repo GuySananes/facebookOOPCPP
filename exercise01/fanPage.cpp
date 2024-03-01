@@ -15,6 +15,15 @@ FanPage::FanPage(char* page_name)
 	this->number_of_status_ = this->size_of_status_list_ = 0;
 }
 
+FanPage::FanPage(const char* page_name)
+{
+	strcpy(this->page_name_, page_name);
+	this->fans_list_ = new Profile*;
+	this->number_of_fans_ = this->size_of_fans_list_ = 0;
+	this->status_list_ = new Status*;
+	this->number_of_status_ = this->size_of_status_list_ = 0;
+}
+
 //distructor
 FanPage::~FanPage() 
 {
@@ -44,10 +53,19 @@ void FanPage::addStatus()
 	this->status_list_[this->number_of_status_++] = newStatus;
 }
 
+void FanPage::addStatus(const char* status)
+{
+	Status* newStatus = new Status(status);
+	this->status_list_[this->number_of_status_++] = newStatus;
+}
+
 void FanPage::showAllStatus()
 {
 	for (int i = 0; i < this->number_of_status_; i++)
 	{
 		this->status_list_[i]->showStatus();
 	}
+	system("pause");
 }
+
+
