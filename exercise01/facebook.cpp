@@ -75,13 +75,13 @@ void Facebook::fDo(int command)
 		showAllStatus();
 		break;
 	case (int)Command::SHOW_LAST_10_STATUS:
-		//showLast10Status();
+		showLast10Status();
 		break;
 	case (int)Command::LINK_FRIENDSHIP:
 		linkFriendship();
 		break;
 	case (int)Command::CANCEL_FRIENDSHIP:
-		//cancelFriendship();
+		cancelFriendship();
 		break;
 	case (int)Command::ADD_FAN_TO_PAGE:
 		//addFanToPage();
@@ -138,11 +138,14 @@ void Facebook::addExistUsers()
 	this->usersList_[this->numOfUser_++] = newProfile;
 	DateOfBirth.setDate(19, 9, 1979);
 	newProfile = new Profile("Hermione Granger", DateOfBirth);
+	usersList_[0]->addFriend(newProfile);
 	newProfile->addStatus("It's LeviOsa, not LevioSA");
 	newProfile->addStatus("I'm going to the library");
 	this->usersList_[this->numOfUser_++] = newProfile;
 	DateOfBirth.setDate(1, 3, 1980);
 	newProfile = new Profile("Ronald Weasley", DateOfBirth);
+	usersList_[0]->addFriend(newProfile);
+	usersList_[1]->addFriend(newProfile);
 	newProfile->addStatus("Why does it always have to be me?");
 	newProfile->addStatus("I'm hungry");
 	this->usersList_[this->numOfUser_++] = newProfile;
@@ -274,4 +277,42 @@ void Facebook::linkFriendship()
 	cout << "Please enter user number:" << endl;
 	cin >> choice2;
 	this->usersList_[choice1 - 1]->addFriend(this->usersList_[choice2 - 1]);
+}
+
+void Facebook::cancelFriendship() {
+	system("cls");
+	gotoxy(0, 0);
+	showAllProfile();
+	cout << "Please enter user number:" << endl;
+	int choice1,choice2;
+	cin >> choice1;
+	usersList_[choice1 - 1]->showAllFriends();
+	cout << "Please enter user number:" << endl;
+	cin >> choice2;
+	usersList_[choice2 - 1]->removeFriend(choice2);
+}
+
+void Facebook::showLast10Status()
+{
+	system("cls");
+	gotoxy(0, 0);
+	cout << "Do you want to see 10 last statuses of a friend or a fan page?" << endl
+		<< "1 - Friend" << endl
+		<< "2 - Fan page" << endl;
+	int choice;
+	cin >> choice;
+	if (choice == 1)
+	{
+		showAllProfile();
+		cout << "Please enter user number:" << endl;
+		cin >> choice;
+		this->usersList_[choice - 1]->showLast10Status();
+	}
+	else
+	{
+		showAllFanPage();
+		cout << "Please enter fan page number:" << endl;
+		cin >> choice;
+		this->fanPagesList_[choice - 1]->showLast10Status();
+	}
 }

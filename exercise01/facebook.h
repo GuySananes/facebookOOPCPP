@@ -60,17 +60,11 @@ public:
 
 	void showAllStatus();
 
-	void showLast10Status()
-	{
-		//TODO
-	}
+	void showLast10Status();
 
 	void linkFriendship(); 
 
-	void cancelFriendship()
-	{
-		//TODO
-	}
+	void cancelFriendship();
 
 	void addFanToPage()
 	{

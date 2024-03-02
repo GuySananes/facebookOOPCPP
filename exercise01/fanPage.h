@@ -31,6 +31,8 @@ public:
 	void addStatus();
 	void addStatus(const char* status);
 	void showAllStatus();
+	void sortStatusesByDate();
+	void showLast10Status();
 
 
 };

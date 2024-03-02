@@ -14,3 +14,16 @@ void Date::setDate(int d, int m, int y)
 	this->month = m;
 	this->year = y;
 }
+
+int Date::compareTo(const Date& other) const {
+	if (year < other.year) return -1;
+	if (year > other.year) return 1;
+	
+	if (month < other.month) return -1;
+	if (month > other.month) return 1;
+	
+	if (day < other.day) return -1;
+	if (day > other.day) return 1;
+	
+	return 0;
+}

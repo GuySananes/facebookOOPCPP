@@ -68,4 +68,29 @@ void FanPage::showAllStatus()
 	system("pause");
 }
 
+void FanPage::sortStatusesByDate()
+{
+	bool swapped;
+	do {
+		swapped = false;
+		for (int i = 0; i < number_of_status_ - 1; i++) {
 
+			if (status_list_[i]->getDate().compareTo(status_list_[i + 1]->getDate()) > 0) {
+
+				Status* temp = status_list_[i];
+				status_list_[i] = status_list_[i + 1];
+				status_list_[i + 1] = temp;
+				swapped = true;
+			}
+		}
+	} while (swapped);
+}
+
+void FanPage::showLast10Status()
+{
+	for (int i = 1; i <= 10; i++)
+	{
+		this->status_list_[this->number_of_status_ - i]->showStatus();
+	}
+	system("pause");
+}

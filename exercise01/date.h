@@ -18,6 +18,7 @@ public:
 
     void showDate();
     void setDate(int d, int m, int y);
+    int compareTo(const Date& other) const;
 };
 
 #endif // !__DATE_H

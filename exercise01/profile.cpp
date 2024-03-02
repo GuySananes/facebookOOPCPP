@@ -1,6 +1,7 @@
 #include "profile.h"
 #include <string.h>
 #include <iostream>
+#include "general.h"
 using namespace std;
 
 
@@ -64,6 +65,7 @@ void Profile::addStatus(const char* status)
 {
 	Status* newStatus = new Status(status);
 	this->status_list_[this->num_of_status_++] = newStatus;
+	this->sortStatusesByDate();
 }
 
 void Profile::showAllStatus()
@@ -101,4 +103,45 @@ void Profile::addFriend(Profile* newFriend)
 	}
 	newFriend->friends_list_[newFriend->num_of_friends_++] = this;
 	this->friends_list_[this->num_of_friends_++] = newFriend;
+}
+
+void Profile::showAllFriends() {
+	system("cls");
+	gotoxy(0, 0);
+	char name[USER_NAME_LEN];
+	for (int i = 0; i < num_of_friends_;i++) {
+		friends_list_[i]->getProfileName(name);
+		cout << "User " << i + 1 << " : " << name << endl;
+	}
+}
+
+void Profile::removeFriend(int numOfFriend) {
+	//if(numOfFriend)
+}
+
+void Profile::sortStatusesByDate()
+{
+	bool swapped;
+	do {
+		swapped = false;
+		for (int i = 0; i < num_of_status_ - 1; i++) {
+			
+			if (status_list_[i]->getDate().compareTo(status_list_[i + 1]->getDate()) > 0) {
+				
+				Status* temp = status_list_[i];
+				status_list_[i] = status_list_[i + 1];
+				status_list_[i + 1] = temp;
+				swapped = true;
+			}
+		}
+	} while (swapped);
+}
+
+void Profile::showLast10Status()
+{
+	for (int i = 1; i <= 10; i++)
+	{
+		this->status_list_[this->num_of_status_ - i]->showStatus();
+	}
+	system("pause");
 }

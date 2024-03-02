@@ -33,6 +33,10 @@ public:
 	void getProfileName(char* name);
 	void showAllStatus();
 	void addFriend(Profile* newFriend);
+	void showAllFriends();
+	void removeFriend(int numOfFriend);
+	void sortStatusesByDate();
+	void showLast10Status();
 
 	//distructor
 	~Profile();

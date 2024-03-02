@@ -38,3 +38,8 @@ void Status::showStatus()
 	this->date_.showDate();
 	cout << " " << this->text_ << endl;
 }
+
+Date Status::getDate()
+{
+	return this->date_;
+}

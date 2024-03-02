@@ -32,6 +32,7 @@ public:
 	//member function
 
 	void showStatus();
+	Date getDate();
 
 
 
