@@ -33,6 +33,9 @@ public:
 	void showAllStatus();
 	void sortStatusesByDate();
 	void showLast10Status();
+	bool isFan(Profile* profile);
+	void increaseSizeOfFansList();
+	void increaseSizeOfStatusList();
 
 
 };

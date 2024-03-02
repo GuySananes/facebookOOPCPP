@@ -52,9 +52,9 @@ public:
 
 	void addStatus();
 
-	void showAllProfile(int skip);
-
 	void showAllProfile();
+
+	void showAllunlinkedProfile(Profile* profile);
 
 	void showAllFanPage();
 
@@ -66,30 +66,19 @@ public:
 
 	void cancelFriendship();
 
-	void addFanToPage()
-	{
-		//TODO
-	}
+	void addFanToPage();
 
-	void removeFanFromPage()
-	{
-		//TODO
-	}
+	void showAllPotentialFan(FanPage* page);
 
-	void showAllSystemEnteties()
-	{
-		//TODO
-	}
+	void removeFanFromPage();
 
-	void showAllFriends()
-	{
-		//TODO
-	}
+	void showAllSystemEnteties();	
 
-	void exit()
-	{
-		//TODO
-	}
+	void showAllFriendsOrFans();
+
+	void showAllFriends();
+
+	void exit();
 
 	void removeUser()
 	{

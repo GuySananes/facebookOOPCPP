@@ -9,18 +9,22 @@ using namespace std;
 FanPage::FanPage(char* page_name) 
 {
 	strcpy(this->page_name_, page_name);
-	this->fans_list_ = new Profile*;
+	size_of_fans_list_ = 1;
+	this->fans_list_ = new Profile*[size_of_fans_list_]();
 	this->number_of_fans_ = this->size_of_fans_list_ = 0;
-	this->status_list_ = new Status*;
+	size_of_status_list_ = 1;
+	this->status_list_ = new Status*[size_of_status_list_]();
 	this->number_of_status_ = this->size_of_status_list_ = 0;
 }
 
 FanPage::FanPage(const char* page_name)
 {
 	strcpy(this->page_name_, page_name);
-	this->fans_list_ = new Profile*;
+	size_of_fans_list_ = 1;
+	this->fans_list_ = new Profile * [size_of_fans_list_]();
 	this->number_of_fans_ = this->size_of_fans_list_ = 0;
-	this->status_list_ = new Status*;
+	size_of_status_list_ = 1;
+	this->status_list_ = new Status * [size_of_status_list_]();
 	this->number_of_status_ = this->size_of_status_list_ = 0;
 }
 
@@ -32,7 +36,6 @@ FanPage::~FanPage()
 		delete this->fans_list_[i];
 	}
 	delete[] this->fans_list_;
-	delete this->page_name_;
 }
 
 //member function
@@ -50,12 +53,20 @@ void FanPage::addStatus()
 	ws(cin);
 	cin.getline(status, 100);
 	Status* newStatus = new Status(status);
+	if (this->number_of_status_ == this->size_of_status_list_)
+	{
+		this->increaseSizeOfStatusList();
+	}
 	this->status_list_[this->number_of_status_++] = newStatus;
 }
 
 void FanPage::addStatus(const char* status)
 {
 	Status* newStatus = new Status(status);
+	if (this->number_of_status_ == this->size_of_status_list_)
+	{
+		this->increaseSizeOfStatusList();
+	}
 	this->status_list_[this->number_of_status_++] = newStatus;
 }
 
@@ -93,4 +104,76 @@ void FanPage::showLast10Status()
 		this->status_list_[this->number_of_status_ - i]->showStatus();
 	}
 	system("pause");
+}
+
+bool FanPage::isFan(Profile* profile)
+{
+	for (int i = 0; i < this->number_of_fans_; i++)
+	{
+		if (this->fans_list_[i] == profile)
+		{
+			return true;
+		}
+	}
+	return false;
+	
+}
+
+void FanPage::addFan(Profile* fan)
+{
+	if (this->number_of_fans_ == this->size_of_fans_list_)
+	{
+		this->increaseSizeOfFansList();
+	}
+	this->fans_list_[this->number_of_fans_++] = fan;
+}
+
+void FanPage::increaseSizeOfFansList()
+{
+	this->size_of_fans_list_ *= 2;
+	Profile** temp = new Profile * [this->size_of_fans_list_]();
+	for (int i = 0; i < this->number_of_fans_; i++)
+	{
+		temp[i] = this->fans_list_[i];
+	}
+	delete[] this->fans_list_;
+	this->fans_list_ = temp;
+}
+
+void FanPage::increaseSizeOfStatusList()
+{
+	this->size_of_status_list_ *= 2;
+	Status** temp = new Status * [this->size_of_status_list_]();
+	for (int i = 0; i < this->number_of_status_; i++)
+	{
+		temp[i] = this->status_list_[i];
+	}
+	delete[] this->status_list_;
+	this->status_list_ = temp;
+}
+
+void FanPage::showAllFans()
+{
+	char name[USER_NAME_LEN];
+	for (int i = 0; i < this->number_of_fans_; i++)
+	{
+		this->fans_list_[i]->getProfileName(name);
+		cout << "Fan " << i + 1 << " : " << name << endl;
+	}
+}
+
+void FanPage::removeFan(Profile* fan)
+{
+	for (int i = 0; i < this->number_of_fans_; i++)
+	{
+		if (this->fans_list_[i] == fan)
+		{
+			for (int j = i; j < this->number_of_fans_; j++)
+			{
+				this->fans_list_[j] = this->fans_list_[j + 1];
+			}
+			this->number_of_fans_--;
+			return;
+		}
+	}
 }

@@ -35,8 +35,12 @@ public:
 	void addFriend(Profile* newFriend);
 	void showAllFriends();
 	void removeFriend(int numOfFriend);
-	void sortStatusesByDate();
 	void showLast10Status();
+	bool isFriend(Profile* profile);
+	void increaseSizeOfFriendsList();
+	void increaseSizeOfStatusList();
+
+	static void sortStatusesByDate(Status** status_list, int num_of_status);
 
 	//distructor
 	~Profile();

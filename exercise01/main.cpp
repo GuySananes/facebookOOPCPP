@@ -3,7 +3,7 @@ using namespace std;
 #include "facebook.h"
 
 
-void main()
+int main()
 {
 	Facebook my_facebook;
 	my_facebook.addExistUsers();
@@ -13,7 +13,7 @@ void main()
 		my_facebook.fDo(command);
 	} while (command != 12);
 
-
+	return 0;
 }
 
 
