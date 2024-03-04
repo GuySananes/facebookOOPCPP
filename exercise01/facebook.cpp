@@ -317,9 +317,7 @@ void Facebook::showLast10Status()
 {
 	system("cls");
 	gotoxy(0, 0);
-	
 	int choice;
-	cin >> choice;
 	cout << "Profile list:" << endl;
 	showAllProfile();
 	cout << "Please enter user number:" << endl;
@@ -340,6 +338,7 @@ void Facebook::addFanToPage()
 	cout << "Please enter user number:" << endl;
 	cin >> choice;
 	this->fanPagesList_[choice - 1]->addFan(this->usersList_[choice - 1]);
+	this->usersList_[choice - 1]->addFanPage(this->fanPagesList_[choice - 1]);
 }
 
 void Facebook::removeFanFromPage()

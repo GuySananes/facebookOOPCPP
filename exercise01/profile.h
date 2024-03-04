@@ -4,6 +4,7 @@
 //includes
 #include "date.h"
 #include "status.h"
+class FanPage;
 
 #define USER_NAME_LEN 20
 #define STATUS_LEN 100
@@ -15,7 +16,9 @@ private:
 	Date date_of_birth_;
 	Status** status_list_;
 	Profile** friends_list_;
-	//pages_list liked_pages;
+	FanPage** liked_pages_;
+	int size_of_liked_pages_;
+	int num_of_liked_pages_;
 	int num_of_friends_;
 	int size_of_friends_list_;
 	int size_of_status_list_;
@@ -39,6 +42,8 @@ public:
 	bool isFriend(Profile* profile);
 	void increaseSizeOfFriendsList();
 	void increaseSizeOfStatusList();
+	void increseSizeOfFanPageList();
+	void addFanPage(FanPage* newFanPage);
 
 	static void sortStatusesByDate(Status** status_list, int num_of_status);
 

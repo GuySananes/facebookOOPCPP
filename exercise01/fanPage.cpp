@@ -19,13 +19,13 @@ FanPage::FanPage(char* page_name)
 
 FanPage::FanPage(const char* page_name)
 {
-	strcpy(this->page_name_, page_name);
+	strcpy(page_name_, page_name);
 	size_of_fans_list_ = 1;
-	this->fans_list_ = new Profile * [size_of_fans_list_]();
-	this->number_of_fans_ = this->size_of_fans_list_ = 0;
+	fans_list_ = new Profile * [size_of_fans_list_]();
+	number_of_fans_ = 0;
 	size_of_status_list_ = 1;
-	this->status_list_ = new Status * [size_of_status_list_]();
-	this->number_of_status_ = this->size_of_status_list_ = 0;
+	status_list_ = new Status * [size_of_status_list_]();
+	number_of_status_ =  0;
 }
 
 //distructor
@@ -176,4 +176,14 @@ void FanPage::removeFan(Profile* fan)
 			return;
 		}
 	}
+}
+
+int FanPage::getNumOfStatus()
+{
+	return this->number_of_status_;
+}
+
+Status * FanPage::getStatus(int index)
+{
+	return this->status_list_[index];
 }

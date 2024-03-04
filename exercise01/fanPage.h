@@ -36,6 +36,8 @@ public:
 	bool isFan(Profile* profile);
 	void increaseSizeOfFansList();
 	void increaseSizeOfStatusList();
+	int getNumOfStatus();
+	Status* getStatus(int index);
 
 
 };

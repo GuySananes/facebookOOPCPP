@@ -2,6 +2,8 @@
 #include <string.h>
 #include <iostream>
 #include "general.h"
+#include "status.h"
+#include "fanPage.h"
 using namespace std;
 
 
@@ -17,7 +19,9 @@ Profile::Profile (char name_[USER_NAME_LEN],Date& dateOfBirth)
 	this->size_of_status_list_ = 1;
 	this->status_list_ = new Status*[size_of_status_list_]();
 	this->num_of_status_ = 0;
-
+	this->liked_pages_ = new FanPage*[1]();
+	this->num_of_liked_pages_ = 0;
+	this->size_of_liked_pages_ = 1;
 }
 
 Profile::Profile (const char name_[USER_NAME_LEN], Date& dateOfBirth)
@@ -31,6 +35,10 @@ Profile::Profile (const char name_[USER_NAME_LEN], Date& dateOfBirth)
 	this->size_of_status_list_ = 1;
 	this->status_list_ = new Status * [size_of_status_list_]();
 	this->num_of_status_ = 0;
+	this->num_of_liked_pages_ = 0;
+	this->size_of_liked_pages_ = 1;
+	this->liked_pages_ = new FanPage * [size_of_liked_pages_]();
+
 }
 
 //distructor
@@ -131,34 +139,54 @@ void Profile::sortStatusesByDate(Status** status_list, int num_of_status)
 	} while (swapped);
 }
 
+void Profile::addFanPage(FanPage* page)
+{
+	if (this->num_of_liked_pages_ == this->size_of_liked_pages_)
+		increseSizeOfFanPageList();
+	this->liked_pages_[this->num_of_liked_pages_++] = page;
+}
+
 void Profile::showLast10Status()
 {
-	Status** latest = new Status * [(1 + this->num_of_friends_)* 10];
-	int i = 0, size = (1 + this->num_of_friends_) * 10;
-	while( i < 10 && this->num_of_status_ - 1 - i >= 0)
-	{
-		latest[i] = this->status_list_[this->num_of_status_ - 1 - i];
-		i--;
-	}
-
-	for ( i = 10; i < size; i+=10)
-	{
-		int j = 0;
-		while(j < 10 && this->friends_list_[i/10 - 1]->num_of_status_ - 1 - j >=0)
-		{
-			latest[i] = this->friends_list_[i / 10 - 1]->status_list_[this->friends_list_[i / 10 - 1]->num_of_status_ - 1 - j];
-			i--;
+	Status** latest = new Status * [10]();
+	int size = 0;
+	for (int i = 0; i < this->num_of_friends_;i++) {
+		for (int j = 0; j < this->friends_list_[i]->num_of_status_; j++) {
+			if (this->friends_list_[i]->status_list_[j] != nullptr) {
+				if (size< 10) {
+					latest[size] = this->friends_list_[i]->status_list_[j];
+					size++;
+				}
+				else if(latest[9]->getDate().compareTo(this->friends_list_[i]->status_list_[j]->getDate()) < 0)
+				{
+					latest[9] = this->friends_list_[i]->status_list_[j];
+					sortStatusesByDate(latest, 10);
+				}
+			}
 		}
 	}
-
-	Profile::sortStatusesByDate(latest, size);
-
+	Status* temp = nullptr;
+	for (int i = 0; i < this->num_of_liked_pages_; i++) {
+		for (int j = 0; j < this->liked_pages_[i]->getNumOfStatus(); j++) {
+			temp= this->liked_pages_[i]->getStatus(j);
+			if (temp != nullptr) {
+				if (size < 10) {
+					latest[size] = temp;
+					size++;
+				}
+				else if (latest[9]->getDate().compareTo(temp->getDate()) < 0)
+				{
+					latest[9] = temp;
+					sortStatusesByDate(latest, 10);
+				}
+			}
+		}
+	
+	}
 	cout << "Top 10 latest statuses:" << endl;
 
-	for(i = size - 11; i < size; i++)
+	for (int i=0;i<size;i++)
 	{
-		latest[i]->getDate().showDate();
-		cout << " ";
 		latest[i]->showStatus();
 		cout << endl;
 	}
@@ -199,4 +227,15 @@ void Profile::increaseSizeOfStatusList()
 	}
 	delete[] this->status_list_;
 	this->status_list_ = temp;
+}
+
+void Profile::increseSizeOfFanPageList(){
+	this->size_of_liked_pages_ *= 2;
+	FanPage** temp = new FanPage * [this->size_of_liked_pages_];
+	for (int i = 0; i < this->num_of_liked_pages_; i++)
+	{
+		temp[i] = this->liked_pages_[i];
+	}
+	delete[] this->liked_pages_;
+	this->liked_pages_ = temp;
 }
