@@ -33,8 +33,11 @@ public:
 
 	void showStatus();
 	Date getDate();
-
-
+	
+	bool operator==(Status* other)
+	{ return strcmp(this->text_, other->text_/*&&strcmp(this->image_, other->image_ && strcmp(this->vid_, other->vid_*/); }
+	bool operator!=(Status* other) { return !(*this == other); }
+	}
 
 };
 
