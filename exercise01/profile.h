@@ -4,15 +4,13 @@
 //includes
 #include "date.h"
 #include "status.h"
-class FanPage;
 
-#define USER_NAME_LEN 20
-#define STATUS_LEN 100
+class FanPage;
 
 class Profile
 {
 private:
-	char name_[USER_NAME_LEN];
+	string name_;
 	Date date_of_birth_;
 	Status** status_list_;
 	Profile** friends_list_;
@@ -27,13 +25,13 @@ private:
 
 public:
 	// Constructor
-	Profile(char name_[USER_NAME_LEN], Date& dateOfBirth);
-	Profile(const char name_[USER_NAME_LEN], Date& dateOfBirth);
+	//Profile(string name_, Date& dateOfBirth);
+	Profile(const string name_, Date& dateOfBirth);
 
 	// Member function
 	void addStatus();
-	void addStatus(const char* status);
-	void getProfileName(char* name);
+	void addStatus(const string status);
+	void getProfileName(string& name);
 	void showAllStatus();
 	void addFriend(Profile* newFriend);
 	Profile& operator+=(Profile* newFriend) { this->addFriend(newFriend); return *newFriend; }

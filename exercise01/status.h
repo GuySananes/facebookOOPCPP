@@ -1,5 +1,6 @@
 #ifndef __STATUS_H
 #define __STATUS_H
+using namespace std;
 
 //include
 #include "date.h"
@@ -16,18 +17,17 @@ class Status
 private:
 	StatusType type_;
 	Date date_;
-	char* text_;
+	string text_;
 	int size_of_text_;
 
 public:
 	//constructor
-	Status(char* status);
-	Status(const char* status);
+	Status(const string status);
 
 	//distructor
 	~Status()
 	{
-		delete[] this->text_;
+		//delete[] this->text_;
 	}
 
 	//member function
@@ -36,7 +36,9 @@ public:
 	Date getDate();
 	
 	bool operator==(Status* other)
-	{ return strcmp(this->text_, other->text_/*&&strcmp(this->image_, other->image_ && strcmp(this->vid_, other->vid_*/); }
+	{
+		return this->text_ == other->text_/*&&this->image_ == other->image_ && this->vid_ == other->vid_*/;
+	}
 	bool operator!=(Status* other) { return !(*this == other); }
 
 };

@@ -6,20 +6,10 @@ using namespace std;
 
 
 //constructor
-FanPage::FanPage(char* page_name) 
-{
-	strcpy(this->page_name_, page_name);
-	size_of_fans_list_ = 1;
-	this->fans_list_ = new Profile*[size_of_fans_list_]();
-	this->number_of_fans_ = this->size_of_fans_list_ = 0;
-	size_of_status_list_ = 1;
-	this->status_list_ = new Status*[size_of_status_list_]();
-	this->number_of_status_ = this->size_of_status_list_ = 0;
-}
 
-FanPage::FanPage(const char* page_name)
+FanPage::FanPage(const string page_name)
 {
-	strcpy(page_name_, page_name);
+	this->page_name_ = page_name;
 	size_of_fans_list_ = 1;
 	fans_list_ = new Profile * [size_of_fans_list_]();
 	number_of_fans_ = 0;
@@ -40,18 +30,17 @@ FanPage::~FanPage()
 
 //member function
 
-void FanPage::getFanPageName(char* name)
+void FanPage::getFanPageName(string& name)
 {
-	strncpy(name, this->page_name_, 20);
-	name[19] = '\0';
+	name = this->page_name_;
 }
 
 void FanPage::addStatus()
 {
-	char status[100];
+	string status;
 	cout << "Please enter new status:" << endl;
 	ws(cin);
-	cin.getline(status, 100);
+	cin >> status;
 	Status* newStatus = new Status(status);
 	if (this->number_of_status_ == this->size_of_status_list_)
 	{
@@ -60,7 +49,7 @@ void FanPage::addStatus()
 	this->status_list_[this->number_of_status_++] = newStatus;
 }
 
-void FanPage::addStatus(const char* status)
+void FanPage::addStatus(const string status)
 {
 	Status* newStatus = new Status(status);
 	if (this->number_of_status_ == this->size_of_status_list_)
@@ -154,7 +143,7 @@ void FanPage::increaseSizeOfStatusList()
 
 void FanPage::showAllFans()
 {
-	char name[USER_NAME_LEN];
+	string name;
 	for (int i = 0; i < this->number_of_fans_; i++)
 	{
 		this->fans_list_[i]->getProfileName(name);

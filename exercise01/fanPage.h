@@ -1,12 +1,14 @@
 #ifndef __FAN_PAGE_H
 #define __FAN_PAGE_H
+using namespace std;
 
 #include "profile.h"
+#include <string>
 
 class FanPage
 {
 private:
-	char page_name_[20];
+	string page_name_;
 	Profile** fans_list_;
 	int number_of_fans_;
 	int size_of_fans_list_;
@@ -16,8 +18,8 @@ private:
 
 public:
 	//constructor
-	FanPage(char* page_name);
-	FanPage(const char* page_name);
+	
+	FanPage(const string page_name);
 
 	//distructor
 	~FanPage();
@@ -28,9 +30,9 @@ public:
 	void removeFan(Profile* fan);
 	void showAllFans();
 	//void showPageName();
-	void getFanPageName(char* name);
+	void getFanPageName(string& name);
 	void addStatus();
-	void addStatus(const char* status);
+	void addStatus(const string status);
 	void showAllStatus();
 	void sortStatusesByDate();
 	void showLast10Status();

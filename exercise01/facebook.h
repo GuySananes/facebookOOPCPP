@@ -22,8 +22,6 @@ enum class Command
 class Profile;
 class FanPage;
 
-//define
-#define USER_NAME_LEN 20
 
 class Facebook
 {

@@ -8,27 +8,11 @@ using namespace std;
 
 
 //constructor
-Profile::Profile (char name_[USER_NAME_LEN],Date& dateOfBirth)
-{
-	this->date_of_birth_ = dateOfBirth;
-	strncpy(this->name_, name_, USER_NAME_LEN - 1);
-	this->name_[USER_NAME_LEN - 1] = '\0';
-	this->num_of_friends_ = 0;
-	this->size_of_friends_list_ = 1;
-	this->friends_list_ = new Profile*[size_of_friends_list_]();	
-	this->size_of_status_list_ = 1;
-	this->status_list_ = new Status*[size_of_status_list_]();
-	this->num_of_status_ = 0;
-	this->liked_pages_ = new FanPage*[1]();
-	this->num_of_liked_pages_ = 0;
-	this->size_of_liked_pages_ = 1;
-}
 
-Profile::Profile (const char name_[USER_NAME_LEN], Date& dateOfBirth)
+Profile::Profile (const string name_, Date& dateOfBirth)
 {
 	this->date_of_birth_ = dateOfBirth;
-	strncpy(this->name_, name_, USER_NAME_LEN - 1);
-	this->name_[USER_NAME_LEN - 1] = '\0';
+	this->name_ = name_;
 	this->num_of_friends_ = 0;
 	this->size_of_friends_list_ = 1;
 	this->friends_list_ = new Profile * [size_of_friends_list_]();
@@ -52,25 +36,24 @@ Profile::~Profile()
 	delete[] this->friends_list_;
 }
 
-void Profile::getProfileName(char* name)
+void Profile::getProfileName(string& name)
 {
-	strncpy(name, this->name_, USER_NAME_LEN);
-	name[USER_NAME_LEN - 1] = '\0';
+	name = this->name_;
 }
 
 void Profile::addStatus()
 {
-	char status[STATUS_LEN];
+	string status;
 	cout << "Please enter new status:" << endl;
 	ws(cin);
-	cin.getline(status, STATUS_LEN);
+	cin >> status;
 	if (this->num_of_status_ == this->size_of_status_list_)
 		increaseSizeOfStatusList();
 	Status* newStatus = new Status(status);
 	this->status_list_[this->num_of_status_++] = newStatus;
 }
 
-void Profile::addStatus(const char* status)
+void Profile::addStatus(const string status)
 {
 	Status* newStatus = new Status(status);
 	if (this->num_of_status_ == this->size_of_status_list_)
@@ -101,7 +84,7 @@ void Profile::addFriend(Profile* newFriend)
 void Profile::showAllFriends() {
 	system("cls");
 	gotoxy(0, 0);
-	char name[USER_NAME_LEN];
+	string name;
 	for (int i = 0; i < num_of_friends_;i++) {
 		friends_list_[i]->getProfileName(name);
 		cout << "User " << i + 1 << " : " << name << endl;
