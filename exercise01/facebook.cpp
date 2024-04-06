@@ -297,7 +297,8 @@ void Facebook::linkFriendship()
 	showAllunlinkedProfile(usersList_[choice1 - 1]);
 	cout << "Please enter user number:" << endl;
 	cin >> choice2;
-	usersList_[choice1 - 1]->addFriend(usersList_[choice2 - 1]);
+	//usersList_[choice1 - 1]->addFriend(usersList_[choice2 - 1]);
+	*usersList_[choice1 - 1] += usersList_[choice2 - 1];
 }
 
 void Facebook::cancelFriendship() {
@@ -337,8 +338,10 @@ void Facebook::addFanToPage()
 	showAllPotentialFan(this->fanPagesList_[choice - 1]);
 	cout << "Please enter user number:" << endl;
 	cin >> choice;
-	this->fanPagesList_[choice - 1]->addFan(this->usersList_[choice - 1]);
-	this->usersList_[choice - 1]->addFanPage(this->fanPagesList_[choice - 1]);
+	//this->fanPagesList_[choice - 1]->addFan(this->usersList_[choice - 1]);
+	//this->usersList_[choice - 1]->addFanPage(this->fanPagesList_[choice - 1]);
+	*fanPagesList_[choice - 1] += usersList_[choice - 1];
+	*usersList_[choice - 1] += fanPagesList_[choice - 1];
 }
 
 void Facebook::removeFanFromPage()

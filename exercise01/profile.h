@@ -36,6 +36,7 @@ public:
 	void getProfileName(char* name);
 	void showAllStatus();
 	void addFriend(Profile* newFriend);
+	Profile& operator+=(Profile* newFriend) { this->addFriend(newFriend); return *newFriend; };
 	void showAllFriends();
 	void removeFriend(int numOfFriend);
 	void showLast10Status();
@@ -44,6 +45,7 @@ public:
 	void increaseSizeOfStatusList();
 	void increseSizeOfFanPageList();
 	void addFanPage(FanPage* newFanPage);
+	FanPage& operator+=(FanPage* newFanPage) { this->addFanPage(newFanPage); return *newFanPage; };
 
 	static void sortStatusesByDate(Status** status_list, int num_of_status);
 

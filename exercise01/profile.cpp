@@ -44,6 +44,7 @@ Profile::Profile (const char name_[USER_NAME_LEN], Date& dateOfBirth)
 //distructor
 Profile::~Profile()
 {
+	
 	for (int i = 0; i < this->num_of_friends_; i++)
 	{
 		delete this->friends_list_[i];

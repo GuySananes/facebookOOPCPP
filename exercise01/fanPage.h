@@ -24,9 +24,10 @@ public:
 
 	//member function
 	void addFan(Profile* fan);
+	Profile& operator+=(Profile* fan) { addFan(fan); return *fan; };
 	void removeFan(Profile* fan);
 	void showAllFans();
-	void showPageName();
+	//void showPageName();
 	void getFanPageName(char* name);
 	void addStatus();
 	void addStatus(const char* status);
