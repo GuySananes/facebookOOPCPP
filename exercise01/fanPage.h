@@ -39,6 +39,8 @@ public:
 	void increaseSizeOfStatusList();
 	int getNumOfStatus();
 	Status* getStatus(int index);
+	bool operator>(const FanPage& other) const { return this->number_of_fans_ > other.number_of_fans_; }
+	bool operator<(const FanPage& other) const { return this->number_of_fans_ < other.number_of_fans_; }
 
 
 };
