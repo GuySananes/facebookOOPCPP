@@ -3,6 +3,7 @@
 
 //include
 #include "date.h"
+#include <string>
 
 //enum
 enum class StatusType
@@ -37,7 +38,6 @@ public:
 	bool operator==(Status* other)
 	{ return strcmp(this->text_, other->text_/*&&strcmp(this->image_, other->image_ && strcmp(this->vid_, other->vid_*/); }
 	bool operator!=(Status* other) { return !(*this == other); }
-	}
 
 };
 
