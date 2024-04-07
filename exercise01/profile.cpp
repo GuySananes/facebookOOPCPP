@@ -17,22 +17,7 @@ Profile::Profile (const string name_, Date& dateOfBirth): baseProfile(name_)
 //Destructor
 Profile::~Profile()
 {
-	for (auto status : this->status_list_)
-	{
-		delete status;
-	}
-
-	/*for (auto profile :this->friends_list_)
-	{
-		if (this->friends_list_.find(profile.second->getProfileName()) != this->friends_list_.end())
-			delete profile.second;
-	}*/
-
-	/*for (auto page : this->liked_pages_)
-	{
-		if (this->liked_pages_.find(page.second->getFanPageName()) != this->liked_pages_.end())
-			delete page.second;
-	}*/
+	
 }
 
 

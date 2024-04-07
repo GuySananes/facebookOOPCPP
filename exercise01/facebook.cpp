@@ -15,12 +15,6 @@ using namespace std;
 //constructor
 Facebook::Facebook() 
 {
-	/*this->usersList_ = new Profile* [USER_ARRAY_SIZE]();
-	this->numOfUser_ = 0;
-	this->numOfFanPage_ = 0;
-	this->fanPagesList_ = new FanPage * [USER_ARRAY_SIZE]();
-	this->numOfUser_ = 0;*/
-
 }
 
 //Destructor

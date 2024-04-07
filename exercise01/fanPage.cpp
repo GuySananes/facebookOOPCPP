@@ -10,16 +10,7 @@ using namespace std;
 //Destructor
 FanPage::~FanPage() 
 {
-	/*for(auto profile: this->fans_list_)
-	{
-		if(this->fans_list_.find(profile) != this->fans_list_.end())
-			delete profile;
-	}*/
-
-	for (auto status : this->status_list_)
-	{
-		delete status;
-	}
+	
 }
 
 //member function
