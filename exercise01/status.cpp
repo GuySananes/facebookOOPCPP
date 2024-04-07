@@ -24,7 +24,7 @@ void Status::showStatus()
 	cout << " " << this->text_ << endl;
 }
 
-Date Status::getDate()
+const Date& Status::getDate()
 {
 	return this->date_;
 }

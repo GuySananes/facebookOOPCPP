@@ -1,6 +1,9 @@
 #ifndef __FACEBOOK_H
 #define __FACEBOOK_H
+using namespace std;
 
+#include <map>
+#include <string>
 enum class Command
 {
 	ADD_USER = 1,
@@ -27,19 +30,16 @@ class Facebook
 {
 private:
 
-	Profile** usersList_;
-	int numOfUser_;
-	FanPage** fanPagesList_;
-	int numOfFanPage_;
-
-	FanPage** fanPageList_;
-	int numOfPages;
+	map <string, Profile*> usersList_;
+	//int numOfUser_;
+	map<string, FanPage*> fanPagesList_;
+	//int numOfFanPage_;
 
 public:
 	//constructor
 	Facebook();
 
-	//distructor
+	//Destructor
 	~Facebook();
 
 	//member function

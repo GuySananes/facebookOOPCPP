@@ -1,9 +1,12 @@
 #ifndef __PROFILE_H
 #define __PROFILE_H
+using namespace std;
 
 //includes
 #include "date.h"
 #include "status.h"
+#include <map>
+#include <list>
 
 class FanPage;
 
@@ -12,44 +15,34 @@ class Profile
 private:
 	string name_;
 	Date date_of_birth_;
-	Status** status_list_;
-	Profile** friends_list_;
-	FanPage** liked_pages_;
-	int size_of_liked_pages_;
-	int num_of_liked_pages_;
-	int num_of_friends_;
-	int size_of_friends_list_;
-	int size_of_status_list_;
-	int num_of_status_;
+	list<Status*> status_list_;
+	map<string, Profile*> friends_list_;
+	map<string, FanPage*> liked_pages_;
 	
-
+	
 public:
 	// Constructor
-	//Profile(string name_, Date& dateOfBirth);
+	
 	Profile(const string name_, Date& dateOfBirth);
 
 	// Member function
 	void addStatus();
 	void addStatus(const string status);
-	void getProfileName(string& name);
+	const string& getProfileName() const { return this->name_; };
 	void showAllStatus();
 	void addFriend(Profile* newFriend);
 	Profile& operator+=(Profile* newFriend) { this->addFriend(newFriend); return *newFriend; }
 	void showAllFriends();
-	void removeFriend(int numOfFriend);
+	void removeFriend(const string& f_name);
 	void showLast10Status();
-	bool isFriend(Profile* profile);
-	void increaseSizeOfFriendsList();
-	void increaseSizeOfStatusList();
-	void increseSizeOfFanPageList();
+	bool isFriend(Profile* profile);	
 	void addFanPage(FanPage* newFanPage);
 	FanPage& operator+=(FanPage* newFanPage) { this->addFanPage(newFanPage); return *newFanPage; };
-	bool operator>(const Profile& other) const { return this->num_of_friends_ > other.num_of_friends_; }
-	bool operator<(const Profile& other) const { return this->num_of_friends_ < other.num_of_friends_; }
+	bool operator>(const Profile& other) const { return this->friends_list_.size() > other.friends_list_.size(); }
+	bool operator<(const Profile& other) const { return this->friends_list_.size() < other.friends_list_.size(); }
 
-	static void sortStatusesByDate(Status** status_list, int num_of_status);
 
-	//distructor
+	//Destructor
 	~Profile();
 
 

@@ -24,7 +24,7 @@ public:
 	//constructor
 	Status(const string status);
 
-	//distructor
+	//Destructor
 	~Status()
 	{
 		//delete[] this->text_;
@@ -33,7 +33,7 @@ public:
 	//member function
 
 	void showStatus();
-	Date getDate();
+	const Date& getDate();
 	
 	bool operator==(Status* other)
 	{

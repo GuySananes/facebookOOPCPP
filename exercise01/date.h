@@ -19,6 +19,8 @@ public:
     void showDate();
     void setDate(int d, int m, int y);
     int compareTo(const Date& other) const;
+
+    bool operator<(const Date& other) const { return this->compareTo(other) == -1; }
 };
 
 #endif // !__DATE_H

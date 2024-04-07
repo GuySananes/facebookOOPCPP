@@ -15,20 +15,29 @@ using namespace std;
 //constructor
 Facebook::Facebook() 
 {
-	this->usersList_ = new Profile* [USER_ARRAY_SIZE]();
+	/*this->usersList_ = new Profile* [USER_ARRAY_SIZE]();
 	this->numOfUser_ = 0;
 	this->numOfFanPage_ = 0;
 	this->fanPagesList_ = new FanPage * [USER_ARRAY_SIZE]();
-	this->numOfUser_ = 0;
+	this->numOfUser_ = 0;*/
 
 }
 
-//distructor
+//Destructor
 Facebook::~Facebook() {
-	for (int i=0; i < this->numOfUser_; i++) {
+	/*for (int i=0; i < this->numOfUser_; i++) {
 		delete this->usersList_[i];
 	}
-	delete this->usersList_;
+	delete this->usersList_;*/
+	for (auto user : this->usersList_) 
+	{
+		delete user.second;
+	}
+	
+	for (auto fanPage : this->fanPagesList_)
+	{
+		delete fanPage.second;
+	}
 }
 
 
@@ -122,44 +131,50 @@ void Facebook::addUser()
 	cin >> day;
 
 	Date DateOfBirth(day,month,year);
-	Profile* newProfile = new Profile(name_, DateOfBirth);
+	auto profile = new Profile(name_, DateOfBirth);
+	this->usersList_.insert({profile->getProfileName(),profile});
 	
-	this->usersList_[this->numOfUser_++] = newProfile;
 }  // add user
 
 void Facebook::addExistUsers()
 {
 	
 	Date DateOfBirth(31, 7, 1980);
-	Profile* newProfile = new Profile("Harry Potter", DateOfBirth);
-	newProfile->addStatus("THE BOY WHO LIVED");
-	newProfile->addStatus("I'm the chosen one");
-	this->usersList_[this->numOfUser_++] = newProfile;
+	auto harry = new Profile("Harry Potter", DateOfBirth);
+	harry->addStatus("THE BOY WHO LIVED");
+	harry->addStatus("I'm the chosen one");
+	this->usersList_.insert({ harry->getProfileName(), harry });
+
 	DateOfBirth.setDate(19, 9, 1979);
-	newProfile = new Profile("Hermione Granger", DateOfBirth);
-	newProfile->addStatus("It's LeviOsa, not LevioSA");
-	newProfile->addStatus("I'm going to the library");
-	this->usersList_[this->numOfUser_++] = newProfile;
+	auto hermione = new Profile("Hermione Granger", DateOfBirth);
+	hermione->addStatus("It's LeviOsa, not LevioSA");
+	hermione->addStatus("I'm going to the library");
+	this->usersList_.insert({ hermione->getProfileName(), hermione });
+
 	DateOfBirth.setDate(1, 3, 1980);
-	newProfile = new Profile("Ronald Weasley", DateOfBirth);
-	usersList_[1]->addFriend(newProfile);
-	newProfile->addStatus("Why does it always have to be me?");
-	newProfile->addStatus("I'm hungry");
-	this->usersList_[this->numOfUser_++] = newProfile;
-	FanPage* newPage = new FanPage("Hogwarts");
-	newPage->addStatus("Welcome to Hogwarts");
-	newPage->addStatus("The best school of witchcraft and wizardry");
-	this->fanPagesList_[this->numOfFanPage_++] = newPage;
-	newPage = new FanPage("Quidditch");
-	newPage->addFan(usersList_[0]);
-	newPage->addStatus("The best game in the world");
-	newPage->addStatus("Lets see who can find the snitch");
-	this->fanPagesList_[this->numOfFanPage_++] = newPage;
-	newPage = new FanPage("Dumbledore's Army");
-	newPage->addFan(usersList_[0]);
-	newPage->addStatus("We are the army of the light");
-	newPage->addStatus("We will fight against the dark lord");
-	this->fanPagesList_[this->numOfFanPage_++] = newPage;
+	auto ronald = new Profile("Ronald Weasley", DateOfBirth);
+	hermione->addFriend(ronald);
+	ronald->addStatus("Why does it always have to be me?");
+	ronald->addStatus("I'm hungry");
+	this->usersList_.insert({ ronald->getProfileName(), ronald });
+
+	auto hogwarts = new FanPage("Hogwarts");
+	hogwarts->addStatus("Welcome to Hogwarts");
+	hogwarts->addStatus("The best school of witchcraft and wizardry");
+	this->fanPagesList_.insert({hogwarts->getFanPageName(), hogwarts});
+	
+	auto quidditch = new FanPage("Quidditch");
+	quidditch->addFan(harry);
+	quidditch->addStatus("The best game in the world");
+	quidditch->addStatus("Lets see who can find the snitch");
+	this->fanPagesList_.insert({ quidditch->getFanPageName(), quidditch });
+
+	auto army = new FanPage("Dumbledore's Army");
+	army->addFan(harry);
+	army->addStatus("We are the army of the light");
+	army->addStatus("We will fight against the dark lord");
+	this->fanPagesList_.insert({ army->getFanPageName(), army });
+	
 }  // add exist users  
 
 void Facebook::addFanPage()
@@ -170,9 +185,8 @@ void Facebook::addFanPage()
 	cout << "Please enter new fan page name:" << endl;
 	ws(cin);
 	cin >> name;
-	FanPage* newPage = new FanPage(name);
-
-	this->fanPagesList_[this->numOfFanPage_++] = newPage;
+	
+	this->fanPagesList_.insert({ name, new FanPage(name) });
 }
 
 void Facebook::addStatus()
@@ -183,20 +197,36 @@ void Facebook::addStatus()
 		<< "1 - Friend" << endl
 		<< "2 - Fan page" << endl;
 	int choice;
+	
 	cin >> choice;
 	if (choice == 1)
 	{
+		string user_name;
 		showAllProfile();
-		cout << "Please enter user number:" << endl;
-		cin >> choice;
-		this->usersList_[choice - 1]->addStatus();
+		cout << "Please enter user name:" << endl;
+		cin >> user_name;
+		auto it = this->usersList_.find(user_name);
+		if(it != this->usersList_.end()) {
+			it->second->addStatus();
+		}
+		else {
+			cout << "user: " << user_name << " not found!" << endl;
+		}
+
 	}
 	else
 	{
+		string page_name;
 		showAllFanPage();
-		cout << "Please enter fan page number:" << endl;
-		cin >> choice;
-		this->fanPagesList_[choice - 1]->addStatus();
+		cout << "Please enter fan page name:" << endl;
+		cin >> page_name;
+		auto it = this->fanPagesList_.find(page_name);
+		if (it != this->fanPagesList_.end()) {
+			it->second->addStatus();
+		}
+		else {
+			cout << "fan page: " << page_name << " not found!" << endl;
+		}
 	}
 }
 
@@ -205,12 +235,13 @@ void Facebook::showAllunlinkedProfile(Profile* profile)
 	system("cls");
 	gotoxy(0, 0);
 	string name;
-	for (int i = 0; i < this->numOfUser_; i++)
+	int i = 1;
+	for (auto user : this->usersList_)
 	{
-		if ((!profile->isFriend(this->usersList_[i])) && !(profile == this->usersList_[i]))
+
+		if ((!profile->isFriend(user.second)) && !(profile == user.second))
 		{
-			this->usersList_[i]->getProfileName(name);
-			cout << "User " << i + 1 << " : " << name << endl;
+			cout << "User["<<i++<<"]: " << user.second->getProfileName() << endl;
 		}
 	}
 }
@@ -220,12 +251,12 @@ void Facebook::showAllPotentialFan(FanPage* page)
 	system("cls");
 	gotoxy(0, 0);
 	string name;
-	for (int i = 0; i < this->numOfUser_; i++)
-	{
-		if (!page->isFan(this->usersList_[i]))
-		{
-			this->usersList_[i]->getProfileName(name);
-			cout << "User " << i + 1 << " : " << name << endl;
+	int i = 1;
+	for (auto user : this->usersList_)	{
+		
+		if (!page->isFan(user.second)) {
+
+			cout << "Fan page[" << i++ << "]: " << user.second->getProfileName() << endl;
 		}
 	}
 }
@@ -235,29 +266,34 @@ void Facebook::showAllFriends()
 	system("cls");
 	gotoxy(0, 0);
 	showAllProfile();
-	cout << "Please enter user number:" << endl;
-	int choice;
-	cin >> choice;
-	this->usersList_[choice - 1]->showAllFriends();
+	cout << "Please enter user name:" << endl;
+	string user_name;
+	cin >> user_name;
+	auto it = this->usersList_.find(user_name);
+	if (it != this->usersList_.end()) {
+		it->second->showAllFriends();
+	}
+	else {
+		cout << "user: " << user_name << " not found!" << endl;
+	}
 }
 
 void Facebook::showAllProfile()
 {
-	string name;
-	for (int i = 0; i < this->numOfUser_; i++)
+	int i = 1;
+	for (auto user : this->usersList_)
 	{
-		this->usersList_[i]->getProfileName(name);
-		cout << "User " << i + 1 << " : " << name << endl;
+		cout << "User " << i++ << " : " << user.first << endl;
 	}
+	
 }
 
 void Facebook::showAllFanPage()
 {
-	string name;
-	for (int i = 0; i < this->numOfFanPage_; i++)
+	int i = 1;
+	for (auto page : this->fanPagesList_)
 	{
-		this->fanPagesList_[i]->getFanPageName(name);
-		cout << "Fan page " << i + 1 << " : " << name << endl;
+		cout << "Fan page " << i++ << " : " << page.first << endl;
 	}
 }
 
@@ -272,18 +308,38 @@ void Facebook::showAllStatus()
 	cin >> choice;
 	if (choice == 1)
 	{
+		string user_name;
 		showAllProfile();
-		cout << "Please enter user number:" << endl;
-		cin >> choice;
-		this->usersList_[choice - 1]->showAllStatus();
+		cout << "Please enter user name:" << endl;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, user_name);
+		auto it = this->usersList_.find(user_name);
+		if (it != this->usersList_.end()) {
+			it->second->showAllStatus();
+		}
+		else {
+			cout << "user: " << user_name << " not found!" << endl;
+			return;
+		}
+
 	}
 	else
 	{
+		string page_name;
 		showAllFanPage();
-		cout << "Please enter fan page number:" << endl;
-		cin >> choice;
-		this->fanPagesList_[choice - 1]->showAllStatus();
+		cout << "Please enter fan page name:" << endl;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, page_name);
+		
+		auto it = this->fanPagesList_.find(page_name);
+		if (it != this->fanPagesList_.end()) {
+			it->second->showAllStatus();
+		}
+		else {
+			cout << "fan page: " << page_name << " not found!" << endl;
+		}
 	}
+	
 }
 
 void Facebook::linkFriendship()
@@ -291,38 +347,89 @@ void Facebook::linkFriendship()
 	system("cls");
 	gotoxy(0, 0);
 	showAllProfile();
-	cout << "Please enter user number:" << endl;
-	int choice1, choice2;
-	cin >> choice1;
-	showAllunlinkedProfile(usersList_[choice1 - 1]);
-	cout << "Please enter user number:" << endl;
-	cin >> choice2;
-	usersList_[choice1 - 1]->addFriend(usersList_[choice2 - 1]);
+	cout << "Please enter user name:" << endl;
+	string choice1, choice2;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, choice1);
+	auto it = this->usersList_.find(choice1);
+	if (it != this->usersList_.end())
+	{
+		showAllunlinkedProfile(it->second);
+	}
+	else {
+		cout << "user " << choice1 << " not found" << endl;
+		return;
+	}
+	
+	cout << "Please enter user name:" << endl;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, choice2);
+	it = this->usersList_.find(choice2);
+	if (it != this->usersList_.end())
+	{
+		usersList_[choice1]->addFriend(it->second);
+		it->second->addFriend(usersList_[choice1]);
+	}
+	else {
+		cout << "user " << choice2 << " not found" << endl;
+	}
+
 }
 
 void Facebook::cancelFriendship() {
 	system("cls");
 	gotoxy(0, 0);
 	showAllProfile();
-	cout << "Please enter user number:" << endl;
-	int choice1,choice2;
-	cin >> choice1;
-	usersList_[choice1 - 1]->showAllFriends();
-	cout << "Please enter user number:" << endl;
-	cin >> choice2;
-	usersList_[choice2 - 1]->removeFriend(choice2);
+	cout << "Please enter user name:" << endl;
+	string choice1, choice2;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, choice1);
+	auto it = this->usersList_.find(choice1);
+	if (it != this->usersList_.end())
+	{
+		it->second->showAllFriends();
+	}
+	else
+	{
+		cout << "user " << choice1 << " not found" << endl;
+		return;
+	}
+	
+	cout << "Please enter user name:" << endl;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, choice2);
+	it = this->usersList_.find(choice2);
+	if (it != this->usersList_.end())
+	{
+		this->usersList_[choice1]->removeFriend(choice2);
+	}
+	else
+	{
+		cout << "user " << choice2 << " not a friend" << endl;
+		return;
+	}
+
 }
 
 void Facebook::showLast10Status()
 {
 	system("cls");
 	gotoxy(0, 0);
-	int choice;
+	string choice;
 	cout << "Profile list:" << endl;
 	showAllProfile();
-	cout << "Please enter user number:" << endl;
-	cin >> choice;
-	this->usersList_[choice - 1]->showLast10Status();
+	cout << "Please enter user name:" << endl;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, choice);
+	auto it = this->usersList_.find(choice);
+	if (it != this->usersList_.end())
+	{
+		it->second->showLast10Status();
+	}
+	else
+	{
+		cout << "user " << choice << " not found" << endl;
+	}
 	
 }
 
@@ -331,28 +438,76 @@ void Facebook::addFanToPage()
 	system("cls");
 	gotoxy(0, 0);
 	showAllFanPage();
-	cout << "Please enter fan page number:" << endl;
-	int choice;
-	cin >> choice;
-	showAllPotentialFan(this->fanPagesList_[choice - 1]);
-	cout << "Please enter user number:" << endl;
-	cin >> choice;
-	this->fanPagesList_[choice - 1]->addFan(this->usersList_[choice - 1]);
-	this->usersList_[choice - 1]->addFanPage(this->fanPagesList_[choice - 1]);
+	cout << "Please enter fan page name:" << endl;
+	string choice;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, choice);
+	auto it = this->fanPagesList_.find(choice);
+	if (it != this->fanPagesList_.end())
+	{
+		showAllPotentialFan(this->fanPagesList_[choice]);
+	}
+	else
+	{
+		cout << "user " << choice << " not found" << endl;
+	}
+	
+	string user_name;
+	cout << "Please enter user name:" << endl;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, user_name);
+	auto user_it = this->usersList_.find(user_name);
+	if (user_it != this->usersList_.end()) {
+		user_it->second->showAllFriends();
+	}
+	else {
+		cout << "user: " << user_name << " not found!" << endl;
+		return;
+	}
+	this->fanPagesList_[choice]->addFan(user_it->second);
+	
 }
 
 void Facebook::removeFanFromPage()
 {
+	
 	system("cls");
 	gotoxy(0, 0);
 	showAllFanPage();
-	cout << "Please enter fan page number:" << endl;
-	int choice;
-	cin >> choice;
-	this->fanPagesList_[choice - 1]->showAllFans();
-	cout << "Please enter user number:" << endl;
-	cin >> choice;
-	this->fanPagesList_[choice - 1]->removeFan(this->usersList_[choice - 1]);
+	cout << "Please enter fan page name:" << endl;
+	string page_name;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, page_name);
+	auto it = this->fanPagesList_.find(page_name);
+	if (it != this->fanPagesList_.end())
+	{
+		showAllPotentialFan(this->fanPagesList_[page_name]);
+	}
+	else
+	{
+		cout << "page " << page_name << " not found" << endl;
+		return;
+	}
+
+	this->fanPagesList_[page_name]->showAllFans();
+	string fan_name;
+
+	cout << "Please enter fan name:" << endl;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, fan_name);
+
+	
+
+	auto itr = this->usersList_.find(fan_name);
+	if (itr != this->usersList_.end())
+	{
+		this->fanPagesList_[page_name]->removeFan(itr->second);
+	}
+	else
+	{
+		cout << "page " << fan_name << " not found" << endl;
+		return;
+	}
 }
 
 void Facebook::showAllSystemEnteties() {
@@ -376,18 +531,22 @@ void Facebook::showAllFriendsOrFans()
 	cin >> choice;
 	if (choice == 1)
 	{
+		string user_name;
 		showAllProfile();
-		cout << "Please enter user number:" << endl;
-		cin >> choice;
-		this->usersList_[choice - 1]->showAllFriends();
+		cout << "Please enter user name:" << endl;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, user_name);
+		this->usersList_[user_name]->showAllFriends();
 		system("pause");
 	}
 	else
 	{
+		string page_name;
 		showAllFanPage();
-		cout << "Please enter fan page number:" << endl;
-		cin >> choice;
-		this->fanPagesList_[choice - 1]->showAllFans();
+		cout << "Please enter fan page name:" << endl;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, page_name);
+		this->fanPagesList_[page_name]->showAllFans();
 		system("pause");
 	}
 }
