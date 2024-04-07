@@ -88,7 +88,6 @@ void Profile::removeFriend(const string& f_name)
 void Profile::addFanPage(FanPage* page)
 {
 	this->liked_pages_.insert({ page->getFanPageName(), page });
-	page->addFan(this);
 }
 
 void Profile::showLast10Status()

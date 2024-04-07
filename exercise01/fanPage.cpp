@@ -79,6 +79,7 @@ bool FanPage::isFan(Profile* profile)
 void FanPage::addFan(Profile* fan)
 {
 	this->fans_list_.insert(fan);
+	fan->addFanPage(this);
 }
 
 void FanPage::showAllFans()

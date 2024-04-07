@@ -465,7 +465,6 @@ void Facebook::addFanToPage()
 		return;
 	}
 	this->fanPagesList_[choice]->addFan(user_it->second);
-	
 }
 
 void Facebook::removeFanFromPage()
