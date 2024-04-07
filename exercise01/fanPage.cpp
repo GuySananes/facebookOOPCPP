@@ -16,10 +16,11 @@ FanPage::FanPage(const string page_name)
 //Destructor
 FanPage::~FanPage() 
 {
-	for(auto profile: this->fans_list_)
+	/*for(auto profile: this->fans_list_)
 	{
-		delete profile;
-	}
+		if(this->fans_list_.find(profile) != this->fans_list_.end())
+			delete profile;
+	}*/
 
 	for (auto status : this->status_list_)
 	{

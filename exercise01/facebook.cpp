@@ -25,18 +25,17 @@ Facebook::Facebook()
 
 //Destructor
 Facebook::~Facebook() {
-	/*for (int i=0; i < this->numOfUser_; i++) {
-		delete this->usersList_[i];
-	}
-	delete this->usersList_;*/
+	
 	for (auto user : this->usersList_) 
 	{
-		delete user.second;
+		if (this->usersList_.find(user.first) != this->usersList_.end())
+			delete user.second;
 	}
 	
 	for (auto fanPage : this->fanPagesList_)
 	{
-		delete fanPage.second;
+		if (this->fanPagesList_.find(fanPage.first) != this->fanPagesList_.end())
+			delete fanPage.second;
 	}
 }
 

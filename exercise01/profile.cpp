@@ -24,15 +24,17 @@ Profile::~Profile()
 		delete status;
 	}
 
-	for (auto profile :this->friends_list_)
+	/*for (auto profile :this->friends_list_)
 	{
-		delete profile.second;
-	}
+		if (this->friends_list_.find(profile.second->getProfileName()) != this->friends_list_.end())
+			delete profile.second;
+	}*/
 
-	for (auto profile : this->liked_pages_)
+	/*for (auto page : this->liked_pages_)
 	{
-		delete profile.second;
-	}
+		if (this->liked_pages_.find(page.second->getFanPageName()) != this->liked_pages_.end())
+			delete page.second;
+	}*/
 }
 
 

@@ -25,10 +25,7 @@ public:
 	Status(const string status);
 
 	//Destructor
-	~Status()
-	{
-		//delete[] this->text_;
-	}
+	~Status(){}
 
 	//member function
 
