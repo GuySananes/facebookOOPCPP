@@ -120,7 +120,7 @@ void Facebook::addUser()
 	
 	cout << "Please enter user name:" << endl;
 	ws(cin);
-	cin >> name_;
+	getline(cin, name_);
 
 	cout << "Please enter birth year:" << endl;
 	cin >> year;
@@ -131,7 +131,7 @@ void Facebook::addUser()
 
 	Date DateOfBirth(day,month,year);
 	auto profile = new Profile(name_, DateOfBirth);
-	this->usersList_.insert({profile->getProfileName(),profile});
+	this->usersList_.insert({profile->getName(),profile});
 	
 }  // add user
 
@@ -142,37 +142,37 @@ void Facebook::addExistUsers()
 	auto harry = new Profile("Harry Potter", DateOfBirth);
 	harry->addStatus("THE BOY WHO LIVED");
 	harry->addStatus("I'm the chosen one");
-	this->usersList_.insert({ harry->getProfileName(), harry });
+	this->usersList_.insert({ harry->getName(), harry });
 
 	DateOfBirth.setDate(19, 9, 1979);
 	auto hermione = new Profile("Hermione Granger", DateOfBirth);
 	hermione->addStatus("It's LeviOsa, not LevioSA");
 	hermione->addStatus("I'm going to the library");
-	this->usersList_.insert({ hermione->getProfileName(), hermione });
+	this->usersList_.insert({ hermione->getName(), hermione });
 
 	DateOfBirth.setDate(1, 3, 1980);
 	auto ronald = new Profile("Ronald Weasley", DateOfBirth);
 	hermione->addFriend(ronald);
 	ronald->addStatus("Why does it always have to be me?");
 	ronald->addStatus("I'm hungry");
-	this->usersList_.insert({ ronald->getProfileName(), ronald });
+	this->usersList_.insert({ ronald->getName(), ronald });
 
 	auto hogwarts = new FanPage("Hogwarts");
 	hogwarts->addStatus("Welcome to Hogwarts");
 	hogwarts->addStatus("The best school of witchcraft and wizardry");
-	this->fanPagesList_.insert({hogwarts->getFanPageName(), hogwarts});
+	this->fanPagesList_.insert({hogwarts->getName(), hogwarts});
 	
 	auto quidditch = new FanPage("Quidditch");
 	quidditch->addFan(harry);
 	quidditch->addStatus("The best game in the world");
 	quidditch->addStatus("Lets see who can find the snitch");
-	this->fanPagesList_.insert({ quidditch->getFanPageName(), quidditch });
+	this->fanPagesList_.insert({ quidditch->getName(), quidditch });
 
 	auto army = new FanPage("Dumbledore's Army");
 	army->addFan(harry);
 	army->addStatus("We are the army of the light");
 	army->addStatus("We will fight against the dark lord");
-	this->fanPagesList_.insert({ army->getFanPageName(), army });
+	this->fanPagesList_.insert({ army->getName(), army });
 	
 }  // add exist users  
 
@@ -203,10 +203,15 @@ void Facebook::addStatus()
 		string user_name;
 		showAllProfile();
 		cout << "Please enter user name:" << endl;
-		cin >> user_name;
+		ws(cin);
+		getline(cin, user_name);
 		auto it = this->usersList_.find(user_name);
 		if(it != this->usersList_.end()) {
-			it->second->addStatus();
+			string status;
+			cout << "Please enter new status:" << endl;
+			ws(cin);
+			getline(cin, status);
+			it->second->addStatus(status);
 		}
 		else {
 			cout << "user: " << user_name << " not found!" << endl;
@@ -221,7 +226,11 @@ void Facebook::addStatus()
 		cin >> page_name;
 		auto it = this->fanPagesList_.find(page_name);
 		if (it != this->fanPagesList_.end()) {
-			it->second->addStatus();
+			string status;
+			cout << "Please enter new status:" << endl;
+			ws(cin);
+			getline(cin, status);
+			it->second->addStatus(status);
 		}
 		else {
 			cout << "fan page: " << page_name << " not found!" << endl;
@@ -240,7 +249,7 @@ void Facebook::showAllunlinkedProfile(Profile* profile)
 
 		if ((!profile->isFriend(user.second)) && !(profile == user.second))
 		{
-			cout << "User["<<i++<<"]: " << user.second->getProfileName() << endl;
+			cout << "User["<<i++<<"]: " << user.second->getName() << endl;
 		}
 	}
 }
@@ -255,7 +264,7 @@ void Facebook::showAllPotentialFan(FanPage* page)
 		
 		if (!page->isFan(user.second)) {
 
-			cout << "Fan page[" << i++ << "]: " << user.second->getProfileName() << endl;
+			cout << "Fan page[" << i++ << "]: " << user.second->getName() << endl;
 		}
 	}
 }

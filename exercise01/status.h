@@ -23,6 +23,7 @@ private:
 public:
 	//constructor
 	Status(const string status);
+	Status(const Status& other) = delete;
 
 	//Destructor
 	~Status(){}

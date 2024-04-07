@@ -9,11 +9,9 @@ using namespace std;
 
 //constructor
 
-Profile::Profile (const string name_, Date& dateOfBirth)
+Profile::Profile (const string name_, Date& dateOfBirth): baseProfile(name_)
 {
-	this->date_of_birth_ = dateOfBirth;
-	this->name_ = name_;	
-
+	this->date_of_birth_ = dateOfBirth;	
 }
 
 //Destructor
@@ -38,34 +36,6 @@ Profile::~Profile()
 }
 
 
-
-void Profile::addStatus()
-{
-	string status;
-	cout << "Please enter new status:" << endl;
-	ws(cin);
-	cin >> status;
-	this->addStatus(status);
-	
-}
-
-void Profile::addStatus(const string status)
-{
-	Status* newStatus = new Status(status);
-	this->status_list_.push_front(newStatus);
-	
-}
-
-void Profile::showAllStatus()
-{
-	for (auto status : this->status_list_)
-	{
-		status->showStatus();
-	}
-	
-	system("pause");
-}
-
 void Profile::addFriend(Profile* newFriend)
 {
 	this->friends_list_.insert({newFriend->name_, newFriend});
@@ -89,26 +59,12 @@ void Profile::removeFriend(const string& f_name)
 
 void Profile::addFanPage(FanPage* page)
 {
-	this->liked_pages_.insert({ page->getFanPageName(), page });
-}
-
-void Profile::showLast10Status()
-{
-	cout << "Top 10 latest statuses:" << endl;
-
-	int counter = 1;
-	for (auto status : this->status_list_)
-	{
-		if (counter++ == 10) break;
-		status->showStatus();
-	}
-
-	system("pause");
+	this->liked_pages_.insert({ page->getName(), page });
 }
 
 bool Profile::isFriend(Profile* profile)
 {
-	string name = profile->getProfileName();
+	string name = profile->getName();
 	auto it = this->friends_list_.find(name);
 	return it != this->friends_list_.end();
 }

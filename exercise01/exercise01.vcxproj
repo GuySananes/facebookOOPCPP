@@ -104,6 +104,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +120,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="baseProfile.cpp" />
     <ClCompile Include="date.cpp" />
     <ClCompile Include="facebook.cpp" />
     <ClCompile Include="fanPage.cpp" />
@@ -136,6 +141,7 @@
     <ClCompile Include="status.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="baseProfile.h" />
     <ClInclude Include="date.h" />
     <ClInclude Include="facebook.h" />
     <ClInclude Include="fanPage.h" />

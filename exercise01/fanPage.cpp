@@ -6,12 +6,6 @@
 using namespace std;
 
 
-//constructor
-
-FanPage::FanPage(const string page_name)
-{
-	this->page_name_ = page_name;
-}
 
 //Destructor
 FanPage::~FanPage() 
@@ -30,47 +24,6 @@ FanPage::~FanPage()
 
 //member function
 
-const string& FanPage::getFanPageName() const
-{
-	return this->page_name_;
-}
-
-void FanPage::addStatus()
-{
-	string status;
-	cout << "Please enter new status:" << endl;
-	ws(cin);
-	cin >> status;
-	this->addStatus(status);
-}
-
-void FanPage::addStatus(const string status)
-{
-	this->status_list_.push_front(new Status(status));
-}
-
-void FanPage::showAllStatus()
-{
-	
-	for (auto status : this->status_list_)
-	{
-		status->showStatus();
-	}
-	system("pause");
-}
-
-
-void FanPage::showLast10Status()
-{
-	int counter = 1;
-	for (auto status : this->status_list_)
-	{
-		if (counter++ == 10) break;
-		status->showStatus();
-	}
-
-	system("pause");
-}
 
 bool FanPage::isFan(Profile* profile)
 {
@@ -90,7 +43,7 @@ void FanPage::showAllFans()
 	
 	for(auto profile:this->fans_list_)
 	{				
-		cout << "Fan " << index + 1 << " : " << profile->getProfileName() << endl;
+		cout << "Fan " << index + 1 << " : " << profile->getName() << endl;
 		index++;
 	}
 }

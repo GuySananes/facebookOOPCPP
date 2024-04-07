@@ -3,21 +3,21 @@
 using namespace std;
 
 #include "profile.h"
+#include "baseProfile.h"
 #include <string>
 #include <list>
 #include <set>
 
-class FanPage
+class FanPage : public baseProfile
 {
 private:
-	string page_name_;
 	set<Profile*> fans_list_;
-	list<Status*> status_list_;
 
 public:
 	//constructor
 	
-	FanPage(const string page_name);
+	FanPage(const string page_name):baseProfile(page_name) {};
+	FanPage(const FanPage& other) = delete;
 
 	//Destructor
 	~FanPage();
@@ -28,11 +28,6 @@ public:
 	void removeFan(Profile* fan);
 	void showAllFans();
 	//void showPageName();
-	const string& getFanPageName() const;
-	void addStatus();
-	void addStatus(const string status);
-	void showAllStatus();
-	void showLast10Status();
 	bool isFan(Profile* profile);
 	int getNumOfStatus();
 	bool operator>(const FanPage& other) const { return this->fans_list_.size() > other.fans_list_.size(); }
